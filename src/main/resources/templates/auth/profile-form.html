@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<title>Homepage</title>
+</head>
+
+<body>
+<div class="container">
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
+	
+	<br>
+	<h3>Profile</h3>
+	<hr>
+		
+	<p class="h4 mb-4">Update Profile </p>
+	
+	<form th:action="@{/auth/saveProfile}" th:object="${user}" method="POST">
+		<label><b>Username:</b></label>
+		<input type="text" th:field="*{username}" disabled required
+			class="form-control mb-4 col-4" placeholder="Username">
+		
+		<label><b>Name:</b></label>
+		<input type="text" th:field="*{name}" required
+			class="form-control mb-4 col-4" placeholder="Name">
+		
+		<label><b>Email:</b></label>
+		<input type="text" th:field="*{email}" required
+			class="form-control mb-4 col-4" placeholder="Email">
+			
+		<label><b>Password:</b></label>
+		<input type="password" th:field="*{password}"
+			class="form-control mb-4 col-4" placeholder="Password">
+		
+		<button type="submit" class="btn btn-info col-2">Save</button>
+	</form>
+	<hr>
+	<a th:href="@{/auth/profile}">Back to Profile</a>
+</div>
+</body>
+</html>

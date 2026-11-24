@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<title>Use Case Form</title>
+</head>
+
+<body>
+	<div class="container">
+		<div th:replace="~{fragments/navbar :: navbar}"></div>
+		<br>
+				
+		<form th:action="@{/usecase/save}" th:object="${useCase}" method="POST">
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" name="projectId" th:value="${projectId}" />
+			
+			<label><b>Title:</b></label>
+			<input type="text" th:field="*{title}" required
+				class="form-control mb-4 col-6"
+				placeholder="Title" />
+				
+			<label><b>Preconditions:</b></label>
+			<textarea th:field="*{preconditions}" required
+				class="form-control mb-4 col-6"
+				placeholder="Preconditions" rows="3">
+			</textarea>
+			
+			<label><b>Main Flow:</b></label>
+			<textarea th:field="*{mainFlow}" required
+				class="form-control mb-4 col-6"
+				placeholder="Main Flow" rows="5">
+			</textarea>
+			
+			<label><b>Postconditions:</b></label>
+			<textarea th:field="*{postconditions}" required
+				class="form-control mb-4 col-6"
+				placeholder="Postconditions" rows="5">
+			</textarea>
+			
+			<label for="actorIds"><b>Actors:</b></label>
+			<br>
+			<small class="form-text text-muted">(Hold 'Ctrl' to select multiple actors)</small>
+			<select id="actorIds" name="actorIds" class="form-control" multiple size="5" required>
+				<option
+					th:each="actor : ${projectActors}"
+					th:value="${actor.id}"
+					th:text="${actor.name}"
+					th:selected="${selectedActorIds.contains(actor.id)}">
+				</option>
+			</select>
+			
+			<button type="submit" class="btn btn-info col-2 mt-2">Save</button>
+		</form>
+		<hr>
+		<a th:href="@{/usecase/list(projectId=${projectId})}">Back to Use Cases List</a>
+	</div>
+</body>
+</html>

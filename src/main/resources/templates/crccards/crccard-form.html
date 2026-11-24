@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<title>CRC Card Form</title>
+</head>
+
+<body>
+	<div class="container">
+		<div th:replace="~{fragments/navbar :: navbar}"></div>
+		<br>
+				
+		<form th:action="@{/crccard/save}" th:object="${crcCard}" method="POST">
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" name="projectId" th:value="${projectId}" />
+			
+			<label><b>Class Name:</b></label>
+			<input type="text" th:field="*{className}" required
+				class="form-control mb-4 col-6"
+				placeholder="Class name" />
+				
+			<label><b>Responsibilities:</b></label>
+			<textarea th:field="*{responsibilities}" required
+				class="form-control mb-4 col-6"
+				placeholder="Responsibilities" rows="4">
+			</textarea>
+			
+			<label><b>Collaborations:</b></label>
+			<small class="form-text text-muted">Write one collaborating class name per line</small>
+			<textarea th:field="*{collaborations}" required
+				class="form-control mb-4 col-6"
+				placeholder="Collaborations" rows="4">
+			</textarea>
+			
+			<label for="useCaseIds"><b>Linked Use Cases:</b></label>
+			<br>
+			<small class="form-text text-muted">(Hold 'Ctrl' to select multiple use cases)</small>
+			<select id="useCaseIds" name="useCaseIds" class="form-control" multiple size="5" required>
+				<option
+					th:each="useCase : ${projectUseCases}"
+					th:value="${useCase.id}"
+					th:text="${useCase.title}"
+					th:selected="${selectedUseCaseIds.contains(useCase.id)}">
+				</option>
+			</select>
+			
+			<button type="submit" class="btn btn-info col-2 mt-2">Save</button>
+		</form>
+		<hr>
+		<a th:href="@{/crccard/list(projectId=${projectId})}">Back to CRC Cards List</a>
+	</div>
+</body>
+</html>

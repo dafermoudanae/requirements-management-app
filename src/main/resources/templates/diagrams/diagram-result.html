@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<title>Generate Diagram</title>
+</head>
+
+<body>
+	<div class="container">
+		<div th:replace="~{fragments/navbar :: navbar}"></div>
+		<br>
+		
+		<p class="h4 mb-4">
+			Generated script for project with title &mdash; <span class="badge bg-primary" th:text="${project.title}"></span>
+		</p>
+		<hr>
+		
+		<p class="text-muted mb-4">
+			Tool: <strong th:text="${tool}"></strong> &nbsp;|&nbsp;
+			Type: <strong th:text="${type == 'usecase' ? 'Use Case Diagram' : 'Class Diagram'}"></strong>
+		</p>
+		<hr>
+		
+		<div class="mb-3">
+			<button class="btn btn-sm btn-outline-secondary" onclick="copyScript()">Copy to Clipboard</button>
+			
+			<a th:if="${tool == 'plantuml'}"
+				href="https://www.plantuml.com/plantuml/uml/"
+				target="_blank"
+				class="btn btn-sm btn-outline-primary ms-2">
+				Open PlantUML Editor
+			</a>
+			<a th:if="${tool == 'nomnoml'}" 
+				href="https://www.nomnoml.com/"
+				target="_blank"
+				class="btn btn-sm btn-outline-primary ms-2">
+				Open Nomnoml Editor
+			</a>
+		</div>
+				
+		<pre class="border rounded p-3 bg-light" id="scriptArea" th:text="${script}"></pre>
+		
+		<hr>
+		
+		<a th:href="@{/diagram/view(projectId=${project.id})}" class="btn btn-secondary btn-sm">Back</a>
+		<a th:href="@{/project/list}" class="btn btn-outline-secondary btn-sm">Back to Projects</a>
+	</div>
+	
+	<script>
+		function copyScript() {
+			const text = document.getElementById('scriptArea').innerText;
+			navigator.clipboard.writeText(text).then(() => {
+				alert('Script copied to clipboard!');
+			});
+		}
+	</script>
+</body>
+</html>
