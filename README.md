@@ -3,7 +3,7 @@
 A web application for requirements analysis and management, built with Java and Spring Boot. Users can manage projects, actors, use cases and CRC cards, generate UML-style diagrams from the project data, and collaborate on projects.
 
 Software Engineering course project, University of Ioannina, 2026.
-Team: [names of the team members]
+
 
 ## Features
 - User registration and sign-in
