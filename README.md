@@ -25,7 +25,7 @@ Team: [names of the team members]
 
 ## How to Run
 1. Clone the repository:
-  git clone https://github.com/dafermoudanae/requirements-management-app.git
+     `git clone https://github.com/dafermoudanae/requirements-management-app.git`
 2. Set the database password as an environment variable:
    - Windows (PowerShell): `$env:DB_PASSWORD="your_password"`
    - Linux / macOS: `export DB_PASSWORD=your_password`
